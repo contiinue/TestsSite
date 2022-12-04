@@ -1,0 +1,35 @@
+{% extends 'questions/base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="h1">Создать вопрос</div>
+    <section>
+    <div id="new_question">
+        <form action="" method="post" id="question_form">
+            <div class="form_fields" id="form_fields">
+                {% csrf_token %}
+                {{ form.as_p }}
+                {% for answer in answer_form %}
+                    <h3>Ответ</h3>
+                    {{ answer.as_p }}
+                {% endfor %}
+            </div>
+            <input id="buttom_to_add_form_answer" type="button" value="Добавить Ответ" onclick="AddFormAnswer()">
+
+            <button>Отправить форму</button>
+        </form>
+    </div>
+    {% spaceless %}
+    <script>
+        let count_answer = 1
+        function AddFormAnswer() {
+            question = document.getElementById('form_fields')
+            question.innerHTML += `<h3>доп.ответ: ${count_answer}</h5>{{ answer_form.0.as_p }}`
+            count_answer += 1
+        }
+    </script>
+    {% endspaceless %}
+</div>
+
+{% endblock %}

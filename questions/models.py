@@ -3,16 +3,25 @@ from django.db import models
 
 class Category(models.Model):
     category = models.CharField(max_length=63)
-    is_valid = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.category
 
 
 class Answer(models.Model):
     answer = models.CharField(max_length=64)
+    is_answer = models.BooleanField(default=False)
+    question = models.ForeignKey("Question", on_delete=models.PROTECT)
+
+    def __str__(self):
+        return self.answer
 
 
 class Question(models.Model):
     """Question by category."""
 
     question_title = models.CharField(max_length=127)
-    answers = models.ManyToManyField(Answer)
     cat = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.question_title
