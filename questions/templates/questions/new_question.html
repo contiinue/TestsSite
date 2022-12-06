@@ -15,18 +15,17 @@
                     {{ answer.as_p }}
                 {% endfor %}
             </div>
-            <input id="buttom_to_add_form_answer" type="button" value="Добавить Ответ" onclick="AddFormAnswer()">
-
+            <input type="button" value='Добавить Ответ' onclick="AddFormAnswer()">
             <button>Отправить форму</button>
         </form>
     </div>
     {% spaceless %}
     <script>
-        let count_answer = 1
+        let count_anwer = 1
         function AddFormAnswer() {
             question = document.getElementById('form_fields')
-            question.innerHTML += `<h3>доп.ответ: ${count_answer}</h5>{{ answer_form.0.as_p }}`
-            count_answer += 1
+            question.innerHTML += `<h3>Доп Ответ ${count_anwer}</h3> {{ answer_form.1.as_p }}`
+            count_anwer += 1
         }
     </script>
     {% endspaceless %}

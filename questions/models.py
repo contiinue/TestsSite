@@ -13,15 +13,27 @@ class Answer(models.Model):
     is_answer = models.BooleanField(default=False)
     question = models.ForeignKey("Question", on_delete=models.PROTECT)
 
+    def is_valid_answer(self):
+        return self.is_answer
+
     def __str__(self):
         return self.answer
 
 
 class Question(models.Model):
-    """Question by category."""
+    """Question."""
 
     question_title = models.CharField(max_length=127)
-    cat = models.ForeignKey(Category, on_delete=models.CASCADE)
+    cat = models.ForeignKey(Category, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.question_title
+
+
+class BlockQuestionsModel(models.Model):
+    name_block = models.CharField(max_length=63)
+    questions = models.ManyToManyField(Question)
+    cat = models.ForeignKey(Category, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return self.name_block

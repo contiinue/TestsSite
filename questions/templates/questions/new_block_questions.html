@@ -1,0 +1,14 @@
+{% extends 'questions/base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <form action="" method="post">
+        <h1>Создание блока вопросов</h1>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button>Создать</button>
+    </form>
+</div>
+
+{% endblock %}

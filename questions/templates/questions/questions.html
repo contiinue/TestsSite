@@ -1,5 +1,11 @@
 {% extends 'questions/base.html' %}
 
 {% block content %}
-<h1>Главная страница</h1>
+
+<div class="container">
+    <h1>Главная страница</h1>
+    {% for i in question_block %}
+        <h3>{{ i.name_block }}</h3>
+    {% endfor %}
+</div>
 {% endblock %}
