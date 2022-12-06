@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "questions",
     "formtools",
     "carts",
+    "main",
 ]
 
 MIDDLEWARE = [

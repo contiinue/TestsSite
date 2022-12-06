@@ -1,0 +1,15 @@
+{% extends 'carts/base.html' %}
+
+
+{% block content %}
+
+<div class="container">
+    <h1>Сгенерировать карты</h1>
+    <a href="{% url 'carts_homepage' %}">Назад</a>
+    <form class="m-5 text-center" action="" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button class="btn btn-primary" type="submit">Сгенерировать</button>
+    </form>
+</div>
+{% endblock %} 

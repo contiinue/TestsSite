@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import Cart, Payment
+
+
+admin.site.register(Cart)
+admin.site.register(Payment)
 
 # Register your models here.

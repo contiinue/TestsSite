@@ -19,10 +19,11 @@ from .settings import DEBUG
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("task1", include("questions.urls")),
-    path("task2", include("carts.urls")),
+    path("task1/", include("questions.urls")),
+    path("task2/", include("carts.urls")),
+    path("", include("main.urls")),
     path("__debug__/", include("debug_toolbar.urls")),
 ]
 
-if not DEBUG:
+if DEBUG is False:
     urlpatterns += [path("__debug__/", include("debug_toolbar.urls"))]

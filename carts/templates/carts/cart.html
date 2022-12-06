@@ -1,0 +1,15 @@
+{% extends 'carts/base.html' %}
+
+{% block content %}
+<div class="container p-3">
+    <h1>Карта: {{ cart.number_cart }}</h1>
+    <p class="h3">История покупок</p>
+    <a href="{% url 'carts_homepage' %}">Назад</a>
+    {% for i in history_payment %}
+        <div class="cart history-cart">
+            <p>Сумма покупки: {{ i.pay }}</p>
+            <p>Дата покупки: {{ i.date }}</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

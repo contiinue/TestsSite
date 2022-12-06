@@ -1,0 +1,21 @@
+{% extends 'carts/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Все карты.</h1>
+    <a href="{% url 'cart_generator' %}">Сгенерировать карты</a>
+    {% for cart in carts %}
+        {% if cart.status_cart %}
+            <div class="cart">
+                <p>номер карты: {{ cart.number_cart }}</p>
+                <div class="cart_dates">
+                    <p>Дата регистрации карты: {{ cart.date_registration }}</p>
+                    <p>Дата окончания карты: {{ cart.date_end }}</p>
+                    <p>Статус карты: {{ cart.status_cart }}</p>
+                    <a class="btn btn-primary" role="button" href="{% url 'cart_info' cart.pk %}">Посмотреть историю</a>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}
