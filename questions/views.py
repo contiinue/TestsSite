@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.db.models import QuerySet
 from django.http import HttpResponse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, FormView
 from .forms import (
@@ -135,7 +135,9 @@ class BlockQuestions(SessionWizardView):
         return super().get_form_kwargs(step)
 
     def done(self, form_list, **kwargs):
-        return HttpResponse(get_stats_of_user_answer(form_list))
+        answers = get_stats_of_user_answer(form_list)
+        return render(self.request, 'questions/stats_after_test.html',
+                      context={'valid': answers.valid, 'invalid': answers.invalid})
 
 
 class Registration(FormView):

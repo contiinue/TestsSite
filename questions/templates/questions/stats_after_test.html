@@ -1,0 +1,11 @@
+{% extends 'questions/base.html' %}
+
+{% block content %}
+
+<div class="container text-center">
+    <h1>Результат</h1>
+    <p class="h3">Правильных ответов: <strong>{{ valid }}</strong></p>
+    <p class="h3">Не правильных ответов: <strong>{{ invalid }}</strong></p>
+</div>
+
+{% endblock %}
