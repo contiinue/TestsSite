@@ -19,7 +19,8 @@ from .settings import DEBUG
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("questions.urls")),
+    path("task1", include("questions.urls")),
+    path("task2", include("carts.urls")),
     path("__debug__/", include("debug_toolbar.urls")),
 ]
 

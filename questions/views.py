@@ -136,8 +136,11 @@ class BlockQuestions(SessionWizardView):
 
     def done(self, form_list, **kwargs):
         answers = get_stats_of_user_answer(form_list)
-        return render(self.request, 'questions/stats_after_test.html',
-                      context={'valid': answers.valid, 'invalid': answers.invalid})
+        return render(
+            self.request,
+            "questions/stats_after_test.html",
+            context={"valid": answers.valid, "invalid": answers.invalid},
+        )
 
 
 class Registration(FormView):
