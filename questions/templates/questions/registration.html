@@ -1,0 +1,15 @@
+{% extends 'questions/base.html' %}
+
+
+
+{% block content %}
+<div class="container">
+    <h1>Регистрация</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <button class="btn btn-primary" type="submit">Register</button>
+    </form>
+    <p class="text-center info_log_text">Если вы уже зарегистрированны, авторизоваться можно <a href="{% url 'login' %}">здесь</a></p>
+</div>
+{% endblock %}

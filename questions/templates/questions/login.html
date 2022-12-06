@@ -1,0 +1,15 @@
+{% extends 'questions/base.html' %}
+
+
+
+{% block content %}
+<div class="container">
+    <h1>Вход в аккаунт</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <button class="btn btn-primary" type="submit">Register</button>
+    </form>
+    <p class="text-center">Регистрация <a href=" {% url 'registration' %}">Создать Аккаунт</a>.</p>
+</div>
+{% endblock %}

@@ -1,16 +1,28 @@
+from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import LoginView
 from django.db.models import QuerySet
 from django.http import HttpResponse
+from django.shortcuts import redirect
+from django.utils.decorators import method_decorator
 from django.views.generic import ListView, FormView
-from .forms import NewQuestionForm, AnswerForm, BlockAnswersForm, QuestionForm
+from .forms import (
+    NewQuestionForm,
+    AnswerForm,
+    BlockAnswersForm,
+    QuestionForm,
+    MyUserForm,
+)
 from django.urls import reverse_lazy
 
 from .get_stats_of_user_answer import get_stats_of_user_answer
 from .utils import save_answer
-from .models import BlockQuestionsModel
+from .models import BlockQuestionsModel, Category
 from formtools.wizard.views import SessionWizardView
 from collections import OrderedDict
 
 
+@method_decorator(login_required(login_url="login"), name="dispatch")
 class Questions(ListView):
     template_name = "questions/questions.html"
     queryset = BlockQuestionsModel.objects.all()
@@ -23,7 +35,13 @@ class Questions(ListView):
             return block_questions
         return block_questions.filter(cat=category)
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context["category"] = Category.objects.all()
+        return context
 
+
+@method_decorator(login_required(login_url="login"), name="dispatch")
 class NewQuestion(FormView):
     form_class = NewQuestionForm
     template_name = "questions/new_question.html"
@@ -52,6 +70,7 @@ class NewQuestion(FormView):
             )
 
 
+@method_decorator(login_required(login_url="login"), name="dispatch")
 class NewBlockQuestions(FormView):
     form_class = BlockAnswersForm
     template_name = "questions/new_block_questions.html"
@@ -62,6 +81,7 @@ class NewBlockQuestions(FormView):
         return super().form_valid(form)
 
 
+@method_decorator(login_required(login_url="login"), name="dispatch")
 class BlockQuestions(SessionWizardView):
     form_list = [QuestionForm]
     template_name = "questions/block_question.html"
@@ -110,11 +130,35 @@ class BlockQuestions(SessionWizardView):
         """Return Variants answer of question if step is True."""
         if step and question_of_step:
             return {
-                "answers": question_of_step.answer_set.select_related(
-                    "question"
-                ).all()
+                "answers": question_of_step.answer_set.select_related("question").all()
             }
         return super().get_form_kwargs(step)
 
     def done(self, form_list, **kwargs):
         return HttpResponse(get_stats_of_user_answer(form_list))
+
+
+class Registration(FormView):
+    template_name = "questions/registration.html"
+    form_class = MyUserForm
+    success_url = reverse_lazy("home_page")
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return super().form_valid(form)
+
+
+class LoginUser(LoginView):
+    """ """
+
+    template_name = "questions/login.html"
+    success_url = reverse_lazy("homepage")
+
+    def get_success_url(self):
+        return self.success_url
+
+
+def logout_user(request):
+    logout(request)
+    return redirect("homepage", permanent=True)

@@ -1,4 +1,9 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
+
+
+class MyUser(AbstractUser):
+    pass
 
 
 class Category(models.Model):
@@ -32,6 +37,7 @@ class Question(models.Model):
 
 class BlockQuestionsModel(models.Model):
     name_block = models.CharField(max_length=63)
+    description = models.CharField(max_length=300)
     questions = models.ManyToManyField(Question)
     cat = models.ForeignKey(Category, on_delete=models.PROTECT)
 

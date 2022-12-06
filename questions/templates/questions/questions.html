@@ -4,8 +4,20 @@
 
 <div class="container">
     <h1>Главная страница</h1>
-    {% for i in question_block %}
-        <h3>{{ i.name_block }}</h3>
-    {% endfor %}
+    <div class="categories d-flex">
+        <h3>Категории тестов: </h3>
+            <a class="btn btn-primary" href="{% url 'homepage' %}" role="button">all</a>
+            {% for cat in category %}
+                <a class="btn btn-primary categories_links" href="{% url 'homepage' %}?category={{ cat.pk }}" role="button">{{ cat.category }}</a>
+            {% endfor %}
+    </div>
+    <section>
+        {% for i in question_block %}
+            <div class="test-container">
+                <h3><a href="{% url 'test' i.pk %}">{{ i.name_block }}</a></h3>
+                <p>{{ i.description }}</p>
+            </div>
+        {% endfor %}
+    </section>
 </div>
-{% endblock %}
+{% endblock %}  
