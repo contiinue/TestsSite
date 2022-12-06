@@ -1,7 +1,7 @@
 
 # Установка и запуск
 
-``` git clone git@github.com:contiinue/test-task.git && cd test_task ```
+``` git clone git@github.com:contiinue/TestsSite.git && cd test_task ```
 ___
 ## Установка с докером
 
