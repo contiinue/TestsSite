@@ -8,7 +8,7 @@ from .utils import cart_ranger
 
 class CartsView(ListView):
     template_name = "carts/carts.html"
-    queryset = Cart.objects.all()
+    queryset = Cart.objects.all().order_by("number_cart")
     context_object_name = "carts"
 
 

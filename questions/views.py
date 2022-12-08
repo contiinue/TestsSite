@@ -2,7 +2,6 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.db.models import QuerySet
-from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, FormView

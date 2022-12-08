@@ -15,9 +15,12 @@ class Cart(models.Model):
     number_cart = models.CharField(max_length=12, unique=True)
     date_registration = models.DateTimeField(auto_now=True)
     date_end = models.DateTimeField()
+    status = models.BooleanField(default=True)
 
     def __str__(self):
         return self.number_cart
 
-    def status_cart(self) -> bool:
+    def status_cart(self):
+        if self.status is False:
+            return "False"
         return self.date_end > timezone.now()

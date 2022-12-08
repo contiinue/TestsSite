@@ -11,11 +11,56 @@
                 <div class="cart_dates">
                     <p>Дата регистрации карты: {{ cart.date_registration }}</p>
                     <p>Дата окончания карты: {{ cart.date_end }}</p>
-                    <p>Статус карты: {{ cart.status_cart }}</p>
+                    <p>Статус карты: <span id="status_cart{{ cart.pk }}">{{ cart.status }}</span></p>
                     <a class="btn btn-primary" role="button" href="{% url 'cart_info' cart.pk %}">Посмотреть историю</a>
+                    <button class="btn btn-primary button_change", id="{{ cart.pk }}">Изменить статус</button>
+                    <button class="btn btn-primary button_delete bg-danger" cart_id="{{ cart.pk }}">Удалить Карту</button>
                 </div>
             </div>
         {% endif %}
     {% endfor %}
 </div>
+
+<script>
+    let buttons = document.getElementsByClassName('button_change')
+    let button_delete = document.getElementsByClassName('button_delete')
+    for (i of buttons) {
+        i.addEventListener('click', async (elem) => {
+            let status_cart = document.getElementById(`status_cart${elem.target.getAttribute('id')}`)
+            let status 
+            
+            if (status_cart.textContent === 'True') {
+                status = 'False'
+            }
+            else {
+                status = 'True'
+            }
+            let response = await fetch(`http://127.0.0.1:8000/api/cart/${elem.target.getAttribute('id')}/`, {
+                method: 'put',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({'status':`${status}`})
+                })
+            if (response.status == 200) {
+                status_cart.textContent = status
+            }
+        })
+    }
+
+    for (i of button_delete) {
+        i.addEventListener('click', async (elem) => {
+            let response = await fetch(`http://127.0.0.1:8000/api/cart/${elem.target.getAttribute('cart_id')}/`, {
+                method: 'delete',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json',
+                }})
+            if (response.status === 204) {
+                elem.target.parentElement.parentElement.remove()
+            }
+        })
+    }
+</script>
 {% endblock %}
