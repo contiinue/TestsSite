@@ -34,6 +34,11 @@ export DJANGO_SECRET_KEY="some_secret_key"
 #Django
 DJANGO_SECRET_KEY='some_secret_key'
 ```
+## Миграции 
+```
+python manage.py makemigrations && python manage.py migrate
+
+```
 
 ### Установка зависимостей
 ```
