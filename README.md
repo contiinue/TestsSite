@@ -4,6 +4,30 @@
 ``` git clone git@github.com:contiinue/TestsSite.git && cd test_task ```
 
 ___
+## Установка с докером
+
+### Необходимо создать .env файл и добавить переменные окружения (админка создаться автоматически, данные будут взяты с переменных окружения)
+```
+# Postgresql environments
+
+POSTGRES_USER=postgres_user
+POSTGRES_PASSWORD=postgres_password
+POSTGRES_DB=postgres_db
+
+# Django superuser
+DJANGO_SUPERUSER_PASSWORD=test_password
+DJANGO_SUPERUSER_EMAIL=root@root.com
+DJANGO_SUPERUSER_USERNAME=root
+
+# Django
+DJANGO_SECRET_KEY='some_secret_key'
+```
+## Запуск
+```
+docker-compose up --build
+```
+
+___
 ## Установка без докера
 
 ### Создать виртуальное окружение
@@ -50,27 +74,5 @@ python -m pip install -r requirements.txt
 ```
 python manage.py runserver 8000
 ```
-___
-## Установка с докером
 
-### Необходимо создать .env файл и добавить переменные окружения
-```
-# Postgresql environments
-
-POSTGRES_USER=postgres_user
-POSTGRES_PASSWORD=postgres_password
-POSTGRES_DB=postgres_db
-
-# Django superuser
-DJANGO_SUPERUSER_PASSWORD=test_password
-DJANGO_SUPERUSER_EMAIL=root@root.com
-DJANGO_SUPERUSER_USERNAME=root
-
-# Django
-DJANGO_SECRET_KEY='some_secret_key'
-```
-## Запуск
-```
-docker-compose up --build
-```
 
